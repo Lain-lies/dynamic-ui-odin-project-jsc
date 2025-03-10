@@ -1,0 +1,49 @@
+
+*{
+    background-color: antiquewhite;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+html, body{
+    height: 100%;
+
+}
+
+.dropdown{
+    
+    margin: 1rem;
+    position: relative;
+}
+
+.dropdown button{
+    
+    background: white;
+    font-size: 2rem;
+    padding: 2rem;
+
+}
+
+li{
+
+    padding: 1rem;
+    background-color: aqua;
+    width: fit-content;
+    
+}
+
+ul{
+
+    background: none;
+    position: absolute;
+    top: 7rem;
+    left: 0.5rem;
+    visibility: hidden;
+
+}
+
