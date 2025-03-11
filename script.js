@@ -24,20 +24,46 @@ const images = [...document.querySelectorAll(".image-container")];
 const left = document.querySelector(".carousel button:first-child");
 const right = document.querySelector(".carousel button:last-child");
 const max = images.length - 1;
+const navigation = [...document.querySelectorAll("#shown > *")];
+console.log(navigation);
 
 //default
 let currentlyShown = 0;
+navigation[currentlyShown].style.color = "white";
 
+function move(){
+
+    intervalID = setInterval(moveToRightCallBack, 1000);
+
+}
+
+let idle = null;
+ 
 for(let i = 1; i < images.length; i++){
     
     parent.removeChild(images[i]);
 
 }
 
-console.log(parent);
 left.addEventListener("click", () => {
     
+    clearInterval(intervalID); 
+    intervalID = null;
+
+    if(!idle){
+
+        clearInterval(idle);
+    }   
+
+    idle = setInterval(() => {
+    
+        move();
+        clearInterval(idle);
+
+    }, 5000);
+
     parent.removeChild(images[currentlyShown]);
+    navigation[currentlyShown].style.color = "black";
 
     if(currentlyShown === 0){
         
@@ -47,13 +73,29 @@ left.addEventListener("click", () => {
 
         currentlyShown--;
     }
-
+    navigation[currentlyShown].style.color = "white";
     parent.appendChild(images[currentlyShown]);
 });
 
 right.addEventListener("click", () => {
+
+    clearInterval(intervalID); 
+    intervalID = null;
+
+    if(idle){
+
+        clearInterval(idle);
+    }
+
+    idle = setInterval(() => {
     
+        move();
+        clearInterval(idle);
+
+    }, 5000);
+
     parent.removeChild(images[currentlyShown]);
+    navigation[currentlyShown].style.color = "black";
 
     if(currentlyShown === max){
         
@@ -64,5 +106,28 @@ right.addEventListener("click", () => {
         currentlyShown++;
     }
 
+    navigation[currentlyShown].style.color = "white";
     parent.appendChild(images[currentlyShown]);
+
 });
+
+function moveToRightCallBack(){
+
+    parent.removeChild(images[currentlyShown]);
+    navigation[currentlyShown].style.color = "black";
+
+    if(currentlyShown === max){
+        
+        currentlyShown = 0;
+
+    }else{
+
+        currentlyShown++;
+    }
+
+    navigation[currentlyShown].style.color = "white";
+    parent.appendChild(images[currentlyShown]);
+
+}
+
+move();
